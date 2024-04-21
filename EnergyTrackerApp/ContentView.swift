@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var userData = UserData()
+    @State var image: String = "energy"
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            NavigationStack {
+                NavigationLink(destination: DataEntryView(userData: userData)) {
+                    Text("Enter Energy Usage")
+                }.padding()
+                
+                NavigationLink(destination: UserDataView(userData: userData)) {
+                    Text("View Energy Usage Data")
+                    
+                    .navigationTitle("Basic Self Energy Monitoring System")
+                    .navigationBarTitleDisplayMode(.inline)
+                }.padding()
+                
+                Image("energy")
+                    .resizable()
+                    .frame(width:400, height:350, alignment: .center)
+                
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(image: "image")
 }
